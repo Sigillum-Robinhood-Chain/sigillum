@@ -252,7 +252,7 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
         gcol = mix(gcol, vec3(0.2,0.19,0.18), curb*0.8);
         gcol = mix(gcol, vec3(0.2,0.19,0.18)*(0.9+0.1*joint), plaza);
         gcol *= mix(0.55, 1.0, smoothstep(160.0, 50.0, gr));
-        gcol *= 1.0 + uDay*1.8; // aspal & paving dirancang gelap untuk malam: angkat saat siang
+        gcol *= 1.0 + uDay*1.1; // aspal & paving dirancang gelap untuk malam: angkat saat siang
         diffuseColor.rgb = gcol;
         float gRough = mix(0.9, 0.42, road);`,
         )
@@ -877,7 +877,7 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
       float inset = step(0.45, fy)*step(fy, fh - 0.3)*hm;
       float gt = fract(vSeed*0.731);
       vec3 tint = gt < 0.4 ? vec3(0.016,0.026,0.042) : (gt < 0.7 ? vec3(0.014,0.03,0.028) : vec3(0.036,0.026,0.016));
-      tint = mix(tint, vec3(0.10,0.15,0.22) + tint*2.0, uDay*0.8); // kaca memantulkan langit siang, bukan hitam
+      tint = mix(tint, vec3(0.06,0.10,0.16) + tint*2.0, uDay*0.7); // kaca memantulkan langit siang, bukan hitam
       vec3 bcol; float bRough; float bMetal; float win = 0.0; float store = 0.0;
       if(M == 0){
         float mx = 1.0 - smoothstep(0.02, 0.06, min(cf.x, 1.0 - cf.x));
@@ -924,7 +924,7 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
         bRough = 0.95; bMetal = 0.0; win = 0.0; store = 0.0;
       }
       bcol *= mix(0.4, 1.0, smoothstep(0.0, 3.5, vWY));
-      bcol *= 1.0 + uDay*1.0; // fasad lebih terang di bawah matahari
+      bcol *= 1.0 + uDay*0.5; // fasad lebih terang di bawah matahari
       diffuseColor.rgb = bcol;`,
       )
       .replace(
@@ -1898,7 +1898,7 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
     fogDay
       .copy(FOG_D)
       .lerp(FOG_D_WARM, sp.warm * 0.65)
-      .multiplyScalar((0.85 + 0.15 * str) * 1.45);
+      .multiplyScalar((0.82 + 0.18 * str) * 1.05);
     fogColor.copy(FOG_N).lerp(fogDay, d);
     (scene.fog as THREE.FogExp2).color.copy(fogColor);
     (scene.fog as THREE.FogExp2).density = lerp(0.0076, 0.0048, d);
@@ -1912,22 +1912,22 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
     sun.position.copy(SUN).multiplyScalar(160);
     tmpC.copy(SUN_COL_NOON).lerp(SUN_COL_LOW, sp.warm);
     sun.color.copy(SUN_COL_N).lerp(tmpC, d);
-    sun.intensity = lerp(2.8, 2.2 + 2.6 * str, d);
+    sun.intensity = lerp(2.8, 1.5 + 1.8 * str, d);
     // Cahaya pantul langit; di sore/pagi ikut hangat.
     tmpC.copy(HEMI_SKY[1]).lerp(HEMI_SKY_WARM, sp.warm * 0.4);
     hemi.color.copy(HEMI_SKY[0]).lerp(tmpC, d);
     hemi.groundColor.copy(HEMI_GND[0]).lerp(HEMI_GND[1], d);
-    hemi.intensity = lerp(0.55, 1.5 + 0.5 * str, d);
-    amb.intensity = 0.45 * d;
-    scene.environmentIntensity = lerp(1.0, 1.9, d);
+    hemi.intensity = lerp(0.55, 0.95 + 0.25 * str, d);
+    amb.intensity = 0.14 * d;
+    scene.environmentIntensity = lerp(1.0, 1.25, d);
     // Lampu pengisi dingin di sisi berlawanan dari matahari, supaya sisi bayangan tetap terbaca.
     rim.color.copy(RIM_COL[0]).lerp(RIM_COL[1], d);
     rim.intensity = lerp(0.6, 0.5, d);
     tmpV.set(-SUN.x, 0.35, -SUN.z).normalize().multiplyScalar(90);
     rim.position.set(60, 40, 70).lerp(tmpV, d);
-    renderer.toneMappingExposure = lerp(0.95, 1.5, d);
-    bloom.strength = lerp(mobile ? 0.5 : 0.6, mobile ? 0.22 : 0.28, d);
-    bloom.threshold = lerp(0.82, 0.92, d);
+    renderer.toneMappingExposure = lerp(0.95, 1.08, d);
+    bloom.strength = lerp(mobile ? 0.5 : 0.6, mobile ? 0.1 : 0.12, d);
+    bloom.threshold = lerp(0.82, 1.3, d);
     const root = document.documentElement.style;
     root.setProperty('--day', d.toFixed(3));
     root.setProperty('--sun-warm', (sp.warm * d).toFixed(3));

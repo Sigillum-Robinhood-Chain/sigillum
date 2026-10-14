@@ -380,15 +380,15 @@ select {
   z-index: -5;
   pointer-events: none;
   background:
-    radial-gradient(130% 95% at 60% 40%, transparent 38%, rgba(5, 7, 13, calc(0.82 - var(--day, 0) * 0.68)) 100%),
-    linear-gradient(90deg, rgba(5, 7, 13, calc(0.78 - var(--day, 0) * 0.38)) 0%, rgba(5, 7, 13, calc(0.25 - var(--day, 0) * 0.2)) 42%, transparent 68%);
+    radial-gradient(130% 95% at 60% 40%, transparent 38%, rgba(5, 7, 13, calc(0.82 - var(--day, 0) * 0.5)) 100%),
+    linear-gradient(90deg, rgba(5, 7, 13, calc(0.78 - var(--day, 0) * 0.2)) 0%, rgba(5, 7, 13, calc(0.25 - var(--day, 0) * 0.2)) 42%, transparent 68%);
 }
 .veil-landing::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(8, 11, 20, 0.42) 0%, rgba(8, 11, 20, 0.16) 40%, transparent 70%);
+    linear-gradient(90deg, rgba(8, 11, 20, 0.55) 0%, rgba(8, 11, 20, 0.28) 40%, rgba(8, 11, 20, 0.06) 75%);
   opacity: var(--day, 0);
 }
 /* Semburat hangat dari arah matahari saat pagi/sore. */
