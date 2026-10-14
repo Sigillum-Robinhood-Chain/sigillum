@@ -180,7 +180,7 @@ export function WeighhouseClient({
   const noData = !summary || (!summary.supply && !t?.priceUsd);
 
   return (
-    <MotionPage className="flex flex-col gap-3 px-3 pt-[78px] pb-3">
+    <MotionPage className="flex flex-col gap-3 px-gutter pt-[78px] pb-3">
       <MotionHeader className="px-1 pb-1">
         <PageHead
           eyebrow="The Weighhouse"

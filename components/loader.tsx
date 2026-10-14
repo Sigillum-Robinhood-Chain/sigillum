@@ -9,7 +9,7 @@ const MIN_MS = 1400; // tampil minimal, supaya tidak berkedip
 const MAX_MS = 8000; // batas aman: tutup walau `ready` tak pernah true (sigillum: timeout 8 detik)
 const FADE_MS = 1200;
 
-/** Loader layar penuh (sigillum: `.loader`): segel berputar, bar bergerak, fade-out.
+/** Loader layar penuh (sigillum: `.loader`): logo berdenyut, bar bergerak, fade-out.
  *  - Tanpa prop `ready`: menutup sendiri setelah MIN_MS.
  *  - Dengan `ready`: menutup setelah `ready` true DAN MIN_MS lewat (mis. scene 3D siap).
  *  Hanya dipasang di halaman kota (`/`). Putaran/bar memakai `motion`, jadi otomatis
@@ -50,11 +50,11 @@ export function Loader({ ready }: { ready?: boolean }) {
     >
       <div className="text-center">
         <motion.div
-          className="mx-auto mb-[22px] size-[54px] text-gold"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 6, ease: "linear", repeat: Infinity }}
+          className="mx-auto mb-[22px] flex h-[72px] justify-center"
+          animate={{ opacity: [0.55, 1, 0.55], scale: [0.96, 1, 0.96] }}
+          transition={{ duration: 2.4, ease: "easeInOut", repeat: Infinity }}
         >
-          <SiteMark className="size-full" strokeWidth={1.1} />
+          <SiteMark className="h-full w-auto" />
         </motion.div>
         <div className="font-mono text-[11px] uppercase tracking-[0.32em] text-ink-3">
           Pressing the Sigil

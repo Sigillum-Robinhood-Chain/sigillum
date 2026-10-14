@@ -40,7 +40,7 @@ export default async function PostJobPage({
       : undefined;
 
   return (
-    <MotionPage className="flex h-screen flex-col gap-3 px-3 pt-[78px] pb-3">
+    <MotionPage className="flex h-screen flex-col gap-3 px-gutter pt-[78px] pb-3">
 
       <div className="flex flex-1 items-start justify-center overflow-auto py-2">
         <div className="w-full max-w-xl">

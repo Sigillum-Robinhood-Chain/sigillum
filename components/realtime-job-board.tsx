@@ -106,8 +106,8 @@ export function RealtimeJobBoard({
   );
 
   return (
-    <MotionPage className="flex h-screen flex-col gap-4 px-3 pt-[78px] pb-3">
-      <MotionHeader className="px-1">
+    <MotionPage className="flex h-screen flex-col gap-4 px-gutter pt-[78px] pb-3">
+      <MotionHeader>
         <PageHead
           eyebrow="The Job Board"
           title={
