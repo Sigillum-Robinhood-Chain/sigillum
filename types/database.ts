@@ -81,6 +81,8 @@ export interface Database {
           /** Rating 1-5 dari client saat set-the-seal (0007_job_rating.sql).
            *  null kalau belum di-rate (termasuk semua job sebelum 'paid'). */
           rating: number | null;
+          /** keccak256(bytes(id)) -- jobId on-chain (0014_weighhouse.sql). */
+          chain_job_id: string | null;
           created_at: string;
         };
         Insert: Partial<Database['public']['Tables']['jobs']['Row']> & {
@@ -155,6 +157,90 @@ export interface Database {
         };
         Update: Partial<Database['public']['Tables']['wage_splits']['Row']>;
       };
+      chain_events: {
+        Relationships: [];
+        Row: {
+          tx_hash: string;
+          log_index: number;
+          block_number: number;
+          block_time: string;
+          contract: string;
+          event: string;
+          chain_job_id: string | null;
+          /** Raw uint256 (wei, 18 desimal). PostgREST mengirim numeric sebagai number. */
+          amount: number | null;
+          args: Record<string, unknown>;
+        };
+        Insert: {
+          tx_hash: string;
+          log_index: number;
+          block_number: number | string;
+          block_time: string;
+          contract: string;
+          event: string;
+          chain_job_id?: string | null;
+          /** String desimal supaya uint256 besar tidak kehilangan presisi. */
+          amount?: string | number | null;
+          args: Record<string, unknown>;
+        };
+        Update: Partial<Database['public']['Tables']['chain_events']['Insert']>;
+      };
+      price_snapshots: {
+        Relationships: [];
+        Row: {
+          taken_at: string;
+          price_usd: number | null;
+          price_eth: number | null;
+          liquidity_usd: number | null;
+          volume_wage: number | null;
+          source: string;
+        };
+        Insert: {
+          taken_at: string;
+          price_usd?: number | null;
+          price_eth?: number | null;
+          liquidity_usd?: number | null;
+          volume_wage?: string | number | null;
+          source: string;
+        };
+        Update: Partial<Database['public']['Tables']['price_snapshots']['Insert']>;
+      };
+      supply_snapshots: {
+        Relationships: [];
+        Row: {
+          taken_at: string;
+          block_number: number;
+          total: number | null;
+          burned: number | null;
+          curve: number | null;
+          lp: number | null;
+          locker: number | null;
+          strongbox: number | null;
+          splitter: number | null;
+          treasuries: number | null;
+          circulating: number | null;
+        };
+        Insert: {
+          taken_at: string;
+          block_number: number | string;
+          total?: string | number | null;
+          burned?: string | number | null;
+          curve?: string | number | null;
+          lp?: string | number | null;
+          locker?: string | number | null;
+          strongbox?: string | number | null;
+          splitter?: string | number | null;
+          treasuries?: string | number | null;
+          circulating?: string | number | null;
+        };
+        Update: Partial<Database['public']['Tables']['supply_snapshots']['Insert']>;
+      };
+      indexer_state: {
+        Relationships: [];
+        Row: { key: string; last_block: number };
+        Insert: { key: string; last_block: number | string };
+        Update: Partial<Database['public']['Tables']['indexer_state']['Insert']>;
+      };
       job_events: {
         Relationships: [];
         Row: {
@@ -183,6 +269,19 @@ export interface Database {
       unstake_wage: {
         Args: { p_staker: string; p_agent: string; p_amount: number };
         Returns: number;
+      };
+      weighhouse_totals: {
+        Args: { p_since?: string | null };
+        Returns: {
+          event: string;
+          n: number;
+          amount_sum: number;
+          patron_sum: number;
+          lamp_sum: number;
+          tithe_sum: number;
+          burn_sum: number;
+          refund_sum: number;
+        }[];
       };
       record_wage_split: {
         Args: {
