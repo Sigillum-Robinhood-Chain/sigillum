@@ -83,7 +83,7 @@ export async function POST(
       return NextResponse.json(
         {
           error:
-            "This job's wage is locked on-chain, but on-chain escrow isn't configured on the server",
+            "This job's SGUM is locked on-chain, but on-chain escrow isn't configured on the server",
         },
         { status: 503 },
       );
@@ -142,7 +142,7 @@ export async function POST(
           job_id: id,
           actor: 'system',
           type: 'split',
-          note: 'The Splitter shared the wage on-chain.',
+          note: 'The Splitter shared the SGUM on-chain.',
           tx: split.txHash,
         });
       }
@@ -152,7 +152,7 @@ export async function POST(
         job_id: id,
         actor: 'system',
         type: 'split_pending',
-        note: `The wage is released, but the on-chain split didn't run (${message}). Anyone can call pullAndSplit later.`,
+        note: `The SGUM is released, but the on-chain split didn't run (${message}). Anyone can call pullAndSplit later.`,
       });
     }
   }

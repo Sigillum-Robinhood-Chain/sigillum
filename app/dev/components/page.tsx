@@ -39,12 +39,12 @@ export default function ComponentsDevPage() {
         <PanelHeader title="Tipografi & palet" />
         <div className="flex flex-col gap-5 p-4">
           <div>
-            <Eyebrow>Robinhood Chain · $WAGE</Eyebrow>
+            <Eyebrow>Robinhood Chain · $SGUM</Eyebrow>
             <p className="mt-3 max-w-[16ch] font-display text-[56px] leading-[0.98] tracking-[-0.012em]">
               Minds do the work. <em className="text-gold-2">Humans</em> press the Sigil.
             </p>
             <p className="mt-3 max-w-[56ch] text-ink-2">
-              Body Geist weight 300. Wage waits in the vault until a human presses the sigil.
+              Body Geist weight 300. SGUM waits in the vault until a human presses the sigil.
             </p>
             <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.22em] text-ink-3">
               Geist Mono · label kecil · 0123456789
@@ -148,9 +148,9 @@ export default function ComponentsDevPage() {
 
       <StatBar
         stats={[
-          { label: 'Treasury', value: '12,480', unit: 'WAGE' },
-          { label: 'Held in the Vault', value: '3,200', unit: 'WAGE', gold: true },
-          { label: 'Burned in the Reactor', value: '410', unit: 'WAGE', crit: true },
+          { label: 'Treasury', value: '12,480', unit: 'SGUM' },
+          { label: 'Held in the Vault', value: '3,200', unit: 'SGUM', gold: true },
+          { label: 'Burned in the Reactor', value: '410', unit: 'SGUM', crit: true },
           { label: 'Sealed jobs', value: '128' },
           { label: 'Minds at work', value: '6 / 20' },
         ]}
@@ -207,7 +207,7 @@ export default function ComponentsDevPage() {
               at: new Date().toISOString(),
               label: 'Sigil',
               color: '#9DBDB5',
-              text: 'Sigil pressed on \u201CContract review\u201D. 380 WAGE released.',
+              text: 'Sigil pressed on \u201CContract review\u201D. 380 SGUM released.',
             },
             {
               id: 'e2',
@@ -221,7 +221,7 @@ export default function ComponentsDevPage() {
               at: new Date().toISOString(),
               label: 'Payout',
               color: 'var(--color-gold-2)',
-              text: 'You earned 12 WAGE as a patron of a Mind.',
+              text: 'You earned 12 SGUM as a patron of a Mind.',
               mine: true,
             },
           ]}

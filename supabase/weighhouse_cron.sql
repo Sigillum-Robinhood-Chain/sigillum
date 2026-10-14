@@ -9,7 +9,7 @@ create extension if not exists pg_net;
 -- 1. Simpan URL + rahasia di Vault (terenkripsi, tidak muncul di definisi job).
 --    Kalau nama sudah ada (jalan ulang), pakai vault.update_secret(id, ...) atau hapus dulu.
 select vault.create_secret('https://GANTI-DOMAIN-ANDA.vercel.app', 'weighhouse_site_url');
-select vault.create_secret('d45291401b62999cc54c205bfc5ac33da88f252cbabc3d4d6726473ab8a5bbab', 'weighhouse_cron_secret');
+select vault.create_secret('GANTI-DENGAN-CRON_SECRET', 'weighhouse_cron_secret');
 
 -- 2. Jadwal tiap menit: memanggil route indexer di app (event + snapshot suplai + harga).
 select cron.schedule(

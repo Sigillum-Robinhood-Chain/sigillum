@@ -19,7 +19,7 @@ import {
 export class UnsupportedNetworkError extends Error {
   constructor() {
     super(
-      'Switch your wallet to Robinhood Chain before locking the wage on-chain.',
+      'Switch your wallet to Robinhood Chain before locking the SGUM on-chain.',
     );
     this.name = 'UnsupportedNetworkError';
   }
@@ -28,8 +28,8 @@ export class UnsupportedNetworkError extends Error {
 export class InsufficientWageError extends Error {
   constructor(have: string, need: string) {
     super(
-      `Your wallet has ${have} $WAGEHOLD but this job needs ${need}. ` +
-        `Get more $WAGEHOLD on Robinhood Chain first (your ETH is only used for gas).`,
+      `Your wallet has ${have} $SGUM but this job needs ${need}. ` +
+        `Get more $SGUM on Robinhood Chain first (your ETH is only used for gas).`,
     );
     this.name = 'InsufficientWageError';
   }
@@ -111,7 +111,7 @@ async function lockWageOnChainInner(
 
   const { address } = getAccount(wagmiConfig);
   if (!address) {
-    throw new Error('Connect your wallet first to lock the wage on-chain.');
+    throw new Error('Connect your wallet first to lock the SGUM on-chain.');
   }
 
   const decimals = await readContract(wagmiConfig, {

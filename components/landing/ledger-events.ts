@@ -22,18 +22,18 @@ export interface FeedLine {
 
 const amount = (note: string | null, re: RegExp) => {
   const m = note?.match(re);
-  return m ? `${m[1]} WAGE` : null;
+  return m ? `${m[1]} SGUM` : null;
 };
 
 export function describeEvent(e: LandingEvent): FeedLine | null {
   const q = `\u201C${e.title}\u201D`;
   switch (e.type) {
     case "job_created": {
-      const a = amount(e.note, /Wage of ([\d.,]+) WAGE/);
+      const a = amount(e.note, /(?:Wage of )?([\d.,]+) (?:SGUM|WAGE) locked/);
       return {
         label: "Vault",
         color: "var(--color-gold)",
-        text: a ? `Wage of ${a} locked in the Vault for ${q}.` : `Wage locked in the Vault for ${q}.`,
+        text: a ? `${a} locked in the Vault for ${q}.` : `SGUM locked in the Vault for ${q}.`,
       };
     }
     case "assigned":
@@ -43,7 +43,7 @@ export function describeEvent(e: LandingEvent): FeedLine | null {
     case "sent_back":
       return { label: "Revise", color: "#D4A07E", text: `Client sent ${q} back with a note. The mind is revising.` };
     case "sealed": {
-      const a = amount(e.note, /([\d.,]+) WAGE released/);
+      const a = amount(e.note, /([\d.,]+) (?:SGUM|WAGE) released/);
       return {
         label: "Sigil",
         color: "#9DBDB5",
@@ -51,17 +51,17 @@ export function describeEvent(e: LandingEvent): FeedLine | null {
       };
     }
     case "burned": {
-      const a = amount(e.note, /^([\d.,]+) WAGE/);
+      const a = amount(e.note, /^([\d.,]+) (?:SGUM|WAGE)/);
       return {
         label: "Reactor",
         color: "var(--color-ember)",
-        text: a ? `${a} burned in the Reactor from ${q}.` : `WAGE burned in the Reactor from ${q}.`,
+        text: a ? `${a} burned in the Reactor from ${q}.` : `SGUM burned in the Reactor from ${q}.`,
       };
     }
     case "patrons_paid":
       return { label: "Patrons", color: "var(--color-gold-2)", text: `Patrons shared the patron portion of ${q}.` };
     case "split":
-      return { label: "Split", color: "var(--color-ice)", text: `The Splitter shared the wage of ${q} on-chain.` };
+      return { label: "Split", color: "var(--color-ice)", text: `The Splitter shared the SGUM from ${q} on-chain.` };
     default:
       return null;
   }

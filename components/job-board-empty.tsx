@@ -55,7 +55,7 @@ const COPY: Record<
 > = {
   review: {
     title: 'Nothing is waiting for your Sigil',
-    text: 'When a Mind delivers, the work lands here. Read it, rate it, then press the Sigil to release the wage.',
+    text: 'When a Mind delivers, the work lands here. Read it, rate it, then press the Sigil to release the SGUM.',
     cta: 'post',
   },
   working: {

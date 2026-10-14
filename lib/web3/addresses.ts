@@ -11,7 +11,7 @@ const env = (v: string | undefined, fallback: string): `0x${string}` =>
   ((v && v.trim()) || fallback) as `0x${string}`;
 
 export const ADDRESSES = {
-  /** $WAGE token (CA) */
+  /** $SGUM token (CA) */
   wageToken: env(
     process.env.NEXT_PUBLIC_WAGE_TOKEN_ADDRESS,
     "0x1946b849518b87d52985ae1aeeb163a59089f2c8",
@@ -45,7 +45,7 @@ export const ADDRESSES = {
 /** Alamat yang harus diisi tim (brief §9). Kosong = fitur terkait dilewati, bukan error. */
 export const WAGE_CURVE = (process.env.WEIGHHOUSE_WAGE_CURVE?.trim() ||
   undefined) as `0x${string}` | undefined;
-/** Pool ID Uniswap v4 untuk $WAGE (bytes32). Terisi setelah token graduate. */
+/** Pool ID Uniswap v4 untuk $SGUM (bytes32). Terisi setelah token graduate. */
 export const V4_POOL_ID = (process.env.WEIGHHOUSE_V4_POOL_ID?.trim() ||
   undefined) as `0x${string}` | undefined;
 /** Blok deploy Strongbox/Splitter -- indexer mulai dari sini. */

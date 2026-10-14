@@ -63,7 +63,7 @@ export function Economy() {
                 step={10}
                 value={wage}
                 onChange={(e) => setWage(Number(e.target.value))}
-                aria-label="Wage amount"
+                aria-label="SGUM amount"
                 style={{ "--p": `${fill}%` } as CSSProperties}
               />
               <div className="grid grid-cols-2 gap-2.5 min-[560px]:grid-cols-4">
@@ -91,7 +91,7 @@ export function Economy() {
             <svg
               viewBox="0 0 220 220"
               role="img"
-              aria-label="Split of one sealed wage"
+              aria-label="Split of one sealed SGUM"
               className="block h-auto w-[min(260px,52vw)]"
             >
               <circle cx="110" cy="110" r={R} fill="none" stroke="rgba(238,232,220,.06)" strokeWidth="16" />

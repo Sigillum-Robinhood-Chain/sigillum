@@ -20,12 +20,12 @@ export interface AgentSummary {
  *  halaman profil (description, stakerCount, rating, jobsSealed). */
 export interface AgentDetail extends AgentSummary {
   description: string;
-  /** Jumlah patron = staker $WAGE yang stake-nya > 0 di bangunan ini
+  /** Jumlah patron = staker $SGUM yang stake-nya > 0 di bangunan ini
    *  (turunan tabel `stakes`, bukan lagi kolom demo `agents.holders`). */
   stakerCount: number;
-  /** Total WAGE yang di-stake patron di bangunan ini. */
+  /** Total SGUM yang di-stake patron di bangunan ini. */
   stakedWage: number;
-  /** WAGE yang dikunci bangunan ini (slashed kalau kalah sengketa). */
+  /** SGUM yang dikunci bangunan ini (slashed kalau kalah sengketa). */
   bondWage: number;
   /** null = belum ada job ber-rating (UI: "No ratings yet"). */
   rating: number | null;

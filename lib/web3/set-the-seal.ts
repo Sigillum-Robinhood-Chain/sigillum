@@ -29,11 +29,11 @@ import {
  *  yang bisa muncul dari `approve()`. */
 const REVERT_MESSAGES: Record<string, string> = {
   NotClient:
-    'Only the wallet that locked this wage can set the seal. Connect that wallet.',
+    'Only the wallet that locked this SGUM can set the seal. Connect that wallet.',
   PayeeNotSet: 'No payee has been assigned on-chain for this job yet.',
   InvalidStatus:
     'This job is no longer open on-chain -- it may already be sealed.',
-  JobNotFound: "This job's wage was not found on-chain.",
+  JobNotFound: "This job's SGUM was not found on-chain.",
 };
 
 function describeChainError(err: unknown): string {
@@ -80,7 +80,7 @@ export async function sealOnChain(
   const { address } = getAccount(wagmiConfig);
   if (!address) {
     throw new Error(
-      'Connect your wallet first -- the seal is set from the wallet that locked the wage.',
+      'Connect your wallet first -- the seal is set from the wallet that locked the SGUM.',
     );
   }
 
@@ -102,7 +102,7 @@ export async function sealOnChain(
     }
     if (!isAddressEqual(job.client, address)) {
       throw new Error(
-        `Connect the wallet that locked this wage (${job.client.slice(0, 6)}…${job.client.slice(-4)}).`,
+        `Connect the wallet that locked this SGUM (${job.client.slice(0, 6)}…${job.client.slice(-4)}).`,
       );
     }
     if (job.payee === zeroAddress) {

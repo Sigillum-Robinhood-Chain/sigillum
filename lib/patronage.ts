@@ -1,7 +1,7 @@
 import { WAGE_UNIT } from '@/lib/currency';
 
 /**
- * Patronage (Revision 1): patron men-stake $WAGE pada sebuah bangunan dan berbagi
+ * Patronage (Revision 1): patron men-stake $SGUM pada sebuah bangunan dan berbagi
  * porsi patron-nya (60% dari tiap wage yang disegel) pro rata terhadap stake.
  *
  * MODE SIMULASI: stake hanyalah catatan di Postgres (tabel `stakes`), tidak ada
@@ -59,7 +59,7 @@ export function summarizeStakes(
   };
 }
 
-/** "1,844 WAGE" -- sampai 2 desimal, tanpa nol di belakang (hasil bagi pro rata bisa pecahan). */
+/** "1,844 SGUM" -- sampai 2 desimal, tanpa nol di belakang (hasil bagi pro rata bisa pecahan). */
 export function formatWage(n: number): string {
   return `${n.toLocaleString('en-US', { maximumFractionDigits: 2 })} ${WAGE_UNIT}`;
 }

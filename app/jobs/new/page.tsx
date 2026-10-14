@@ -54,7 +54,7 @@ export default async function PostJobPage({
                   Post a <em>job</em>
                 </>
               }
-              lede="The Gate: where clients enter to post jobs. The wage locks in the Vault (escrow) the moment you submit, and stays there until a Mind delivers and you press the Sigil."
+              lede="The Gate: where clients enter to post jobs. The SGUM locks in the Vault (escrow) the moment you submit, and stays there until a Mind delivers and you press the Sigil."
               action={
                 <Link href="/jobs">
                   <Button size="small">Cancel</Button>

@@ -51,7 +51,7 @@ export function BurnChart({ data }: { data: BurnDay[] }) {
       preserveAspectRatio="none"
       className="h-[180px] w-full"
       role="img"
-      aria-label={`WAGE burned per day, peak ${fmtWage(maxBurn)} WAGE, cumulative ${fmtWage(maxCum)} WAGE`}
+      aria-label={`SGUM burned per day, peak ${fmtWage(maxBurn)} SGUM, cumulative ${fmtWage(maxCum)} SGUM`}
     >
       <line
         x1={PAD.l}
@@ -63,7 +63,7 @@ export function BurnChart({ data }: { data: BurnDay[] }) {
       />
       {bars.map((b) => (
         <rect key={b.d.day} x={b.x} y={b.y} width={b.w} height={b.h} fill="#C98762" opacity={0.85}>
-          <title>{`${b.d.day}: ${fmtWage(b.d.burned)} WAGE burned`}</title>
+          <title>{`${b.d.day}: ${fmtWage(b.d.burned)} SGUM burned`}</title>
         </rect>
       ))}
       <path d={line} fill="none" stroke="#E6C36A" strokeWidth={1.5} vectorEffect="non-scaling-stroke" />

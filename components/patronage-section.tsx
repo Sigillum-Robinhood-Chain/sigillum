@@ -9,7 +9,7 @@ import { formatWage } from '@/lib/patronage';
 import { isWalletMode } from '@/lib/identity/mode';
 
 /**
- * Patronage (Revision 1): stake $WAGE pada sebuah bangunan untuk berbagi porsi patron
+ * Patronage (Revision 1): stake $SGUM pada sebuah bangunan untuk berbagi porsi patron
  * (WAGE_SPLIT.patronsPct) pro rata setiap kali client menyegel wage.
  *
  * MODE SIMULASI: stake hanya catatan di database (tidak ada token bergerak).
@@ -145,7 +145,7 @@ export function PatronageSection({
   );
 }
 
-/** Baris Bond: WAGE yang dikunci bangunan, slashed kalau kalah sengketa. */
+/** Baris Bond: SGUM yang dikunci bangunan, slashed kalau kalah sengketa. */
 export function BondLine({ bondWage }: { bondWage: number }) {
   return (
     <p className="text-[12px] text-ink-2">

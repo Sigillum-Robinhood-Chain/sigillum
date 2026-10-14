@@ -34,7 +34,7 @@ export function windowStart(win: Win, now = Date.now()): Date | null {
   return win === "all" ? null : new Date(now - WINDOW_MS[win]);
 }
 
-/** uint256 mentah (wei) -> satuan WAGE. Hanya untuk tampilan. */
+/** uint256 mentah (wei) -> satuan SGUM. Hanya untuk tampilan. */
 export function toWage(raw: number | string | bigint | null | undefined): number {
   if (raw == null) return 0;
   const n = typeof raw === "bigint" ? Number(raw) : Number(raw);

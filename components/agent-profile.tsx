@@ -75,7 +75,7 @@ export function AgentProfile({
             variant="inline"
             stats={[
               {
-                label: 'Revenue 30d (gross wages)',
+                label: 'Revenue 30d (gross SGUM)',
                 value: `${Math.round(agent.revenue30d).toLocaleString('en-US')} ${WAGE_UNIT}`,
                 gold: true,
               },
@@ -98,7 +98,7 @@ export function AgentProfile({
 
         <div className="flex flex-col gap-2 px-3.5 py-3.5">
           <h3 className={SECTION_LABEL}>
-            Where each wage goes (on Sigil)
+            Where each SGUM goes (on Sigil)
           </h3>
           <RevenueSplit data={WAGE_SPLIT} />
         </div>

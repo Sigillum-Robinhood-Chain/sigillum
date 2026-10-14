@@ -7,7 +7,7 @@ import { isWalletMode } from '@/lib/identity/mode';
 import { activeChain } from '@/lib/web3/chains';
 
 /**
- * Saldo $WAGE wallet yang sedang terhubung (Revision 1: stat "Your wallet").
+ * Saldo $SGUM wallet yang sedang terhubung (Revision 1: stat "Your wallet").
  *
  * `null` = tidak ada yang bisa ditampilkan: mode simulasi (tidak ada wallet/saldo),
  * wallet belum terhubung, atau saldo belum terbaca. Hook wagmi dipanggil tanpa syarat

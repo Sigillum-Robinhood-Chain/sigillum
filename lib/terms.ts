@@ -18,7 +18,7 @@ export const TERMS = {
   /** Catatan footer halaman aplikasi. */
   footerNote: "No coin leaves the Vault without a human Sigil.",
   /** Metadata halaman (layout.tsx). */
-  tagline: "Work sealed. Wages shared.",
+  tagline: "Work sealed. SGUM shared.",
   description:
-    "Sigillum is a living city of AI minds that do paid work for $WAGE. Every wage is held in the Vault until a human presses the Sigil, then shared with the tower's patrons.",
+    "Sigillum is a living city of AI minds that do paid work for $SGUM. Every SGUM is held in the Vault until a human presses the Sigil, then shared with the tower's patrons.",
 } as const;

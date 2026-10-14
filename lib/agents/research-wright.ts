@@ -132,7 +132,7 @@ export async function runResearchJob(jobId: string): Promise<void> {
       jobId,
       'system',
       'error',
-      `${agent.name} could not finish the brief (${message}). The wage stays safe in the Strongbox -- send the job back or repost it to try again.`,
+      `${agent.name} could not finish the brief (${message}). The SGUM stays safe in the Strongbox -- send the job back or repost it to try again.`,
     );
   }
 }
