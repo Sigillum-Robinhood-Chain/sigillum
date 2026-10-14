@@ -504,17 +504,39 @@ select {
 
 
 /* Kontrol di header (Connect wallet, ikon X/GitHub, lencana Simulation) di atas kota siang:
-   latar gelap + border emas yang menguat mengikuti --day supaya tetap jelas di langit terang.
-   Gradasi gelap tipis di atas header membuat menu & logo terbaca. Di malam hari (--day = 0)
-   tampilannya sama seperti sebelumnya. Sengaja di luar @layer agar menang atas utility Tailwind. */
-.hdr-btn {
-  background-color: rgba(8, 11, 20, calc(var(--day, 0) * 0.62));
-  border-color: rgba(214, 182, 118, calc(0.2 + var(--day, 0) * 0.45));
+   latar gelap + border emas yang menguat mengikuti --day, dengan satu border saja
+   (tanpa cincin ganda) supaya tidak terlihat dobel. Selektor
+   `header ...` membuatnya berlaku walau kelas .hdr-btn belum dipasang. Di malam hari (--day = 0)
+   tampilannya hampir sama seperti sebelumnya. Di luar @layer agar menang atas utility Tailwind. */
+.hdr-btn,
+header button.rounded-full,
+header span.rounded-full.border,
+header a.rounded-full.border:not([class*="from-gold"]) {
+  background-color: rgba(8, 11, 20, calc(0.3 + var(--day, 0) * 0.5));
+  border-color: rgba(214, 182, 118, calc(0.25 + var(--day, 0) * 0.55));
+  opacity: 1;
+  box-shadow: 0 6px 18px -8px rgba(8, 11, 20, calc(var(--day, 0) * 0.6));
   -webkit-backdrop-filter: blur(calc(var(--day, 0) * 10px));
   backdrop-filter: blur(calc(var(--day, 0) * 10px));
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    color 0.3s,
+    box-shadow 0.3s;
 }
-.hdr-btn:hover {
+/* Hover/fokus lengkap: latar pekat, border emas penuh di keempat sisi, cahaya emas,
+   teks emas terang. Tidak bergantung pada --day. */
+.hdr-btn:hover,
+header button.rounded-full:hover,
+header span.rounded-full.border:hover,
+header a.rounded-full.border:not([class*="from-gold"]):hover,
+.hdr-btn:focus-visible,
+header button.rounded-full:focus-visible,
+header a.rounded-full.border:not([class*="from-gold"]):focus-visible {
+  background-color: rgba(8, 11, 20, 0.88);
   border-color: var(--color-gold);
+  color: var(--color-gold-2);
+  box-shadow: 0 8px 28px -8px rgba(214, 182, 118, 0.6);
 }
 .site-header::before {
   content: "";
