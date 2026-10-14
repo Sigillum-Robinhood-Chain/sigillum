@@ -24,7 +24,7 @@ function WalletConnectDisabled({ reason }: { reason: string }) {
   return (
     <span
       title={reason}
-      className="hidden cursor-not-allowed rounded-full border border-line-2 px-3 py-[7px] font-mono text-[10px] uppercase tracking-[0.16em] text-ink-3 opacity-60 min-[560px]:inline-block"
+      className="hdr-btn hidden cursor-not-allowed rounded-full border border-line-2 px-3 py-[7px] font-mono text-[10px] uppercase tracking-[0.16em] text-ink-3 opacity-60 min-[560px]:inline-block"
     >
       Connect wallet
     </span>
@@ -37,7 +37,7 @@ function SimulationBadge() {
   return (
     <span
       title="Simulation mode: no wallet needed. SGUM are recorded in the database only, and the jobs you post belong to this browser. Wallet connect turns on once on-chain escrow is configured (NEXT_PUBLIC_WAGEHOLD_NETWORK + NEXT_PUBLIC_STRONGBOX_ADDRESS + NEXT_PUBLIC_WAGE_TOKEN_ADDRESS)."
-      className="inline-flex items-center gap-2 rounded-full border border-line-2 px-3 py-[7px] font-mono text-[10px] uppercase tracking-[0.16em] text-ink-3"
+      className="hdr-btn inline-flex items-center gap-2 rounded-full border border-line-2 px-3 py-[7px] font-mono text-[10px] uppercase tracking-[0.16em] text-ink-3"
     >
       <span aria-hidden className="size-1.5 rounded-full bg-gold shadow-[0_0_8px_var(--color-gold)]" />
       Simulation<span className="hidden min-[560px]:inline"> · this browser</span>
@@ -104,7 +104,7 @@ function WalletConnectActive() {
 
   if (!isConnected || !address) {
     return (
-      <Button size="small" onClick={() => open()}>
+      <Button size="small" className="hdr-btn" onClick={() => open()}>
         Connect wallet
       </Button>
     );
@@ -127,7 +127,7 @@ function WalletConnectActive() {
 
   return (
     <div className="flex items-center gap-1.5">
-      <Button size="small" onClick={() => open({ view: 'Account' })}>
+      <Button size="small" className="hdr-btn" onClick={() => open({ view: 'Account' })}>
         {truncate(address)}
       </Button>
       <button

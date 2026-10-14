@@ -31,7 +31,7 @@ function useScrolled(threshold = 40) {
 }
 
 const ICON_BTN =
-  "grid size-[38px] shrink-0 place-items-center rounded-full border border-line-2 text-ink-2 transition-all duration-300 hover:border-gold hover:text-gold-2";
+  "hdr-btn grid size-[38px] shrink-0 place-items-center rounded-full border border-line-2 text-ink-2 transition-all duration-300 hover:border-gold hover:text-gold-2";
 
 function IconLink({
   href,
@@ -98,7 +98,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-40 border-b px-gutter transition-[background-color,border-color,padding] duration-500",
+        "site-header fixed inset-x-0 top-0 z-40 border-b px-gutter transition-[background-color,border-color,padding] duration-500",
         scrolled || menuOpen
           ? "border-line-2 bg-[rgba(5,7,13,0.72)] py-3.5 backdrop-blur-[18px]"
           : "border-transparent py-5"
