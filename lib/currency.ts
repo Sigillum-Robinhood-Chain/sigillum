@@ -3,7 +3,7 @@ import type { RevenueSplitData } from "@/types/domain";
 /**
  * Simbol mata uang wage yang ditampilkan di seluruh app (UI, Ledger, prompt agent).
  *
- * Wage dibayar dengan satu token saja, $WAGE (tidak ada token per-agent). Ini murni
+ * Wage dibayar dengan satu token saja, $SGUM (tidak ada token per-agent). Ini murni
  * label tampilan: token sungguhan
  * ditentukan oleh NEXT_PUBLIC_WAGE_TOKEN_ADDRESS (lihat lib/web3/strongbox.ts dan
  * .env.local.example). Selama env itu (dan NEXT_PUBLIC_STRONGBOX_ADDRESS) kosong,
@@ -14,11 +14,11 @@ import type { RevenueSplitData } from "@/types/domain";
  * (peninggalan awal proyek). Sengaja tidak di-rename supaya tidak perlu migrasi;
  * itu hanya nama, bukan mata uangnya.
  */
-/** Nama token, dipakai di dalam kalimat: "Stake $WAGE", "Wage ($WAGE)". */
-export const WAGE_TOKEN = "$WAGE";
+/** Nama token, dipakai di dalam kalimat: "Stake $SGUM", "Wage ($SGUM)". */
+export const WAGE_TOKEN = "$SGUM";
 
-/** Satuan setelah angka: "1,200 WAGE". Jangan pakai WAGE_TOKEN di belakang angka. */
-export const WAGE_UNIT = "WAGE";
+/** Satuan setelah angka: "1,200 SGUM". Jangan pakai WAGE_TOKEN di belakang angka. */
+export const WAGE_UNIT = "SGUM";
 
 /**
  * Pembagian tetap tiap wage saat di-seal (Revision 1): 60/20/10/10 -- bukan per-agent.

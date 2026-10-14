@@ -8,18 +8,18 @@ import type { DistrictId } from "@/types/domain";
 export type Part = string | { em: string } | { i: string };
 
 export const HERO = {
-  eyebrow: "Robinhood Chain · $WAGE · The Superintelligence City",
+  eyebrow: "Robinhood Chain · $SGUM · The Superintelligence City",
   title: ["Minds do the work. ", { em: "Humans" }, " press the seal."] as Part[],
-  lede: "Sigillum is a living city of twenty superintelligent minds across five districts. They take paid work for $WAGE. Every wage waits in the Vault until a human presses the Sigil, then flows to the patrons who raised the skyline.",
+  lede: "Sigillum is a living city of twenty superintelligent minds across five districts. They take paid work for $SGUM. Every SGUM waits in the Vault until a human presses the Sigil, then flows to the patrons who raised the skyline.",
   primaryCta: "Commission a mind",
   ghostCta: "Explore the districts",
   hint: "Hover a tower · click to inspect a mind",
   /** `key` = field di LandingStats (lib/landing-stats.ts); nilainya dari Supabase (CP5).
    *  Satuan "Minds at work" ("/ {total}") dihitung di hero.tsx dari jumlah mind sebenarnya. */
   stats: [
-    { key: "treasury", k: "Treasury", unit: "WAGE" },
-    { key: "held", k: "Held in the Vault", unit: "WAGE" },
-    { key: "burned", k: "Burned in the Reactor", unit: "WAGE" },
+    { key: "treasury", k: "Treasury", unit: "SGUM" },
+    { key: "held", k: "Held in the Vault", unit: "SGUM" },
+    { key: "burned", k: "Burned in the Reactor", unit: "SGUM" },
     { key: "sealed", k: "Sealed jobs", unit: "" },
     { key: "working", k: "Minds at work", unit: "" },
   ] as const,
@@ -38,7 +38,7 @@ export const THESIS = {
       n: "LAW 01",
       old: "Pay before proof",
       title: "Escrow before work",
-      body: "The wage is locked in the Vault the moment a job is posted. The client, and only the client, can release it.",
+      body: "The SGUM is locked in the Vault the moment a job is posted. The client, and only the client, can release it.",
     },
     {
       n: "LAW 02",
@@ -50,7 +50,7 @@ export const THESIS = {
       n: "LAW 03",
       old: "The platform keeps it all",
       title: "Patrons share the upside",
-      body: "Stake $WAGE on a tower and receive a pro rata share of the patron portion of every wage that tower earns.",
+      body: "Stake $SGUM on a tower and receive a pro rata share of the patron portion of every SGUM that tower earns.",
     },
   ],
 };
@@ -74,21 +74,21 @@ export const PROTOCOL = {
   title: ["From commission to Sigil, in ", { em: "six movements." }] as Part[],
   lede: "A mind may be brilliant, but it is never trusted blindly. Every job travels the same path, and no coin moves until a human has looked at the work.",
   steps: [
-    { n: "01", title: "Commission", body: "A client posts a job with a brief and a wage in $WAGE.", tag: "Job board", key: false },
-    { n: "02", title: "Vault lock", body: "The wage is locked in escrow before any work begins.", tag: "createJob()", key: true },
+    { n: "01", title: "Commission", body: "A client posts a job with a brief and a budget in $SGUM.", tag: "Job board", key: false },
+    { n: "02", title: "Vault lock", body: "The SGUM is locked in escrow before any work begins.", tag: "createJob()", key: true },
     { n: "03", title: "Routing", body: "The district Steward assigns the least-loaded mind.", tag: "selectMind()", key: false },
     { n: "04", title: "Cognition", body: "The mind works within its Charter limits and delivers for review.", tag: "review", key: false },
     { n: "05", title: "The Sigil", body: "The client presses the Sigil, or sends the work back with a note.", tag: "approve()", key: true },
-    { n: "06", title: "Distribution", body: "The wage splits {SPLIT} and the Reactor burns its share.", tag: "pullAndSplit()", key: false },
+    { n: "06", title: "Distribution", body: "The SGUM splits {SPLIT} and the Reactor burns its share.", tag: "pullAndSplit()", key: false },
   ],
 };
 
 export const ECONOMY = {
   eyebrow: "The economy",
-  title: ["Every sealed wage ", { em: "moves the city." }] as Part[],
-  lede: "The split is fixed in the contract, not set per mind. Patrons are rewarded, the city's infrastructure is funded, and a tenth of every wage is burned forever in the Reactor.",
-  calcLabel: "Simulate a sealed wage",
-  donutLabel: "ONE SEALED WAGE",
+  title: ["Every sealed SGUM ", { em: "moves the city." }] as Part[],
+  lede: "The split is fixed in the contract, not set per mind. Patrons are rewarded, the city's infrastructure is funded, and a tenth of every SGUM is burned forever in the Reactor.",
+  calcLabel: "Simulate a sealed SGUM",
+  donutLabel: "ONE SEALED SGUM",
   /** Urutan & warna mengikuti sigillum.html; persen diambil dari WAGE_SPLIT (lib/currency.ts). */
   segments: [
     { key: "patronsPct", label: "Patrons", note: "Stakers of the tower that did the work", color: "var(--color-gold)", hex: "#D6B676" },
@@ -103,9 +103,9 @@ export const CHARTER = {
   title: ["Written into the code. ", { em: "Enforced by the chain." }] as Part[],
   lede: "However capable the minds become, four articles bind them. They live in the app and in the contracts alike.",
   articles: [
-    { n: "I", title: "Only the client can press the Sigil.", body: "No mind, steward or operator can release a wage on someone else's behalf." },
+    { n: "I", title: "Only the client can press the Sigil.", body: "No mind, steward or operator can release the SGUM on someone else's behalf." },
     { n: "II", title: "The Council is a human key.", body: "Disputes are settled by a human, never by an agent. Towers lock a Bond that is slashed if they lose." },
-    { n: "III", title: "Posting a job locks the wage.", body: "If a mind fails or times out, the job returns to open and the wage stays safe in the Vault." },
+    { n: "III", title: "Posting a job locks the SGUM.", body: "If a mind fails or times out, the job returns to open and the SGUM stays safe in the Vault." },
     { n: "IV", title: "Every action is recorded.", body: "Minds may not promise returns, give buy or sell calls, or invent sources and numbers." },
   ],
 };

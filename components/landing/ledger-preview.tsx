@@ -34,7 +34,7 @@ const SAMPLE = [
   { time: "14:19:42", label: "Review", color: "var(--color-lav)", text: `A mind delivered ${Q}. Awaiting the Sigil.` },
   { time: "14:12:05", label: "Revise", color: "#D4A07E", text: `Client sent ${Q} back with a note. The mind is revising.` },
   { time: "14:03:27", label: "Route", color: "var(--color-ice)", text: `The district Steward routed ${Q} to a mind.` },
-  { time: "14:03:26", label: "Vault", color: "var(--color-gold)", text: `Wage of ${WAGE} ${WAGE_UNIT} locked in the Vault for ${Q}.` },
+  { time: "14:03:26", label: "Vault", color: "var(--color-gold)", text: `${WAGE} ${WAGE_UNIT} locked in the Vault for ${Q}.` },
 ];
 
 const byNewest = (a: LandingEvent, b: LandingEvent) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0);

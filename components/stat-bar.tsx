@@ -7,9 +7,9 @@ import { Panel } from "@/components/ui/panel";
 export interface Stat {
   label: string;
   value: string;
-  /** Satuan kecil emas di belakang angka (sigillum: `.stat .v small`), mis. "WAGE". */
+  /** Satuan kecil emas di belakang angka (sigillum: `.stat .v small`), mis. "SGUM". */
   unit?: string;
-  /** Angka beraksen emas (mis. WAGE yang terkunci di Vault). */
+  /** Angka beraksen emas (mis. SGUM yang terkunci di Vault). */
   gold?: boolean;
   /** Angka beraksen ember (mis. yang dibakar di Reactor). */
   crit?: boolean;

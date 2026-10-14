@@ -1,10 +1,10 @@
-import { WeighhouseClient } from '@/components/weighhouse/weighhouse-client';
+import { WeighhouseClient } from "@/components/weighhouse/weighhouse-client";
 import {
   getLedger,
   getPriceSeries,
   getSummary,
   getTopBuildings,
-} from '@/lib/weighhouse/data';
+} from "@/lib/weighhouse/data";
 
 // Data awal dirender di server; setelah mount, WeighhouseClient me-refresh
 // lewat /api/weighhouse/* dan Supabase Realtime.
@@ -14,10 +14,10 @@ export default async function WeighhousePage() {
   // Tiap query dibungkus supaya satu kegagalan (mis. tabel belum dimigrasi)
   // tidak menjatuhkan seluruh halaman -- client punya state kosong sendiri.
   const [summary, ledger, top, price] = await Promise.all([
-    getSummary('7d').catch(() => null),
+    getSummary("7d").catch(() => null),
     getLedger(50).catch(() => []),
-    getTopBuildings('7d').catch(() => []),
-    getPriceSeries('7d').catch(() => null),
+    getTopBuildings("7d").catch(() => []),
+    getPriceSeries("7d").catch(() => null),
   ]);
 
   return (

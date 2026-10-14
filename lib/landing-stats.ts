@@ -4,7 +4,7 @@ import type { JobStatus } from "@/types/enums";
 export interface LandingStats {
   /** Treasury (Grid reserve + Civic fund): tithe + patron cut tanpa staker, dari wage_splits. */
   treasury: number;
-  /** WAGE yang sedang terkunci di Vault: job open / working / review. */
+  /** SGUM yang sedang terkunci di Vault: job open / working / review. */
   held: number;
   /** Total yang dibakar di Reactor, dari wage_splits. */
   burned: number;

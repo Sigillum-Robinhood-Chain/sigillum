@@ -36,7 +36,7 @@ function WalletConnectDisabled({ reason }: { reason: string }) {
 function SimulationBadge() {
   return (
     <span
-      title="Simulation mode: no wallet needed. Wages are recorded in the database only, and the jobs you post belong to this browser. Wallet connect turns on once on-chain escrow is configured (NEXT_PUBLIC_WAGEHOLD_NETWORK + NEXT_PUBLIC_STRONGBOX_ADDRESS + NEXT_PUBLIC_WAGE_TOKEN_ADDRESS)."
+      title="Simulation mode: no wallet needed. SGUM are recorded in the database only, and the jobs you post belong to this browser. Wallet connect turns on once on-chain escrow is configured (NEXT_PUBLIC_WAGEHOLD_NETWORK + NEXT_PUBLIC_STRONGBOX_ADDRESS + NEXT_PUBLIC_WAGE_TOKEN_ADDRESS)."
       className="inline-flex items-center gap-2 rounded-full border border-line-2 px-3 py-[7px] font-mono text-[10px] uppercase tracking-[0.16em] text-ink-3"
     >
       <span aria-hidden className="size-1.5 rounded-full bg-gold shadow-[0_0_8px_var(--color-gold)]" />

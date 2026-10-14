@@ -8,7 +8,7 @@ const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /**
- * Patronage, MODE SIMULASI: stake / unstake $WAGE pada sebuah bangunan.
+ * Patronage, MODE SIMULASI: stake / unstake $SGUM pada sebuah bangunan.
  *
  * Tidak ada token yang bergerak dan tidak ada saldo yang dicek -- hanya catatan di
  * tabel `stakes`. Identitas patron = cookie `wh_sim` browser (sama seperti pemilik
@@ -44,7 +44,7 @@ async function prepare(
   if (amount > MAX_STAKE_PER_ACTION) {
     return {
       error: NextResponse.json(
-        { error: `amount must be at most ${MAX_STAKE_PER_ACTION.toLocaleString('en-US')} WAGE per action` },
+        { error: `amount must be at most ${MAX_STAKE_PER_ACTION.toLocaleString('en-US')} SGUM per action` },
         { status: 400 },
       ),
     };
@@ -106,7 +106,7 @@ export async function POST(
   if (Number(current?.amount ?? 0) + amount > MAX_STAKE_PER_BUILDING) {
     return NextResponse.json(
       {
-        error: `A patron can stake at most ${MAX_STAKE_PER_BUILDING.toLocaleString('en-US')} WAGE on one building (simulation limit)`,
+        error: `A patron can stake at most ${MAX_STAKE_PER_BUILDING.toLocaleString('en-US')} SGUM on one building (simulation limit)`,
       },
       { status: 400 },
     );

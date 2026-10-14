@@ -188,7 +188,7 @@ export function JobCard({
             className="flex flex-col gap-1.5"
           >
             <p className="text-[11.5px] text-warn">
-              Awaiting your Sigil to release the wage.
+              Awaiting your Sigil to release the SGUM.
             </p>
             {job.agentCode && (
               <div

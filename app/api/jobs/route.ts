@@ -138,7 +138,7 @@ export async function POST(request: Request) {
   // membuat job "berbayar" palsu yang lalu di-seal untuk mengkredit revenue agent).
   if (isOnChainEscrowConfigured && typeof body.escrowTx !== 'string') {
     return NextResponse.json(
-      { error: 'The wage must be locked on-chain before posting a job' },
+      { error: 'The SGUM must be locked on-chain before posting a job' },
       { status: 400 },
     );
   }

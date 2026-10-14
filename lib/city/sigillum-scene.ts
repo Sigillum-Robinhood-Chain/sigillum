@@ -351,7 +351,7 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
     const b = i;
     bCount = Math.max(bCount, i + 1);
     const col = DIST[di].col;
-    // Tinggi 0.85x - 1.2x dari desain, naik halus mengikuti revenue (saturasi di ~1500 WAGE).
+    // Tinggi 0.85x - 1.2x dari desain, naik halus mengikuti revenue (saturasi di ~1500 SGUM).
     const hf = 0.85 + 0.35 * (1 - Math.exp(-Math.max(0, m.revenue) / 1500));
     const r = stack(b, x, z, rot, ds.w, ds.w, ds.H * hf, col, ds, 1);
     let top = ds.round ? cyl(b, x, r.y, z, r.cw * 0.55, 0.7, rot, 3, col) : box(b, x, r.y, z, r.cw * 0.5, 0.7, r.cd * 0.5, rot, 3, col);

@@ -37,7 +37,7 @@ export function PostJobForm({
   onSubmit: (values: PostJobValues) => void;
   submitting?: boolean;
   /** Label tombol yang lebih spesifik selagi submitting (mis. "Approving
-   *  $WAGE…" / "Saving job…" dari alur on-chain, Fase 2 item 6). Jatuh ke
+   *  $SGUM…" / "Saving job…" dari alur on-chain, Fase 2 item 6). Jatuh ke
    *  "Locking wage…" kalau tidak diisi. */
   submittingLabel?: string;
   /** Dipakai saat datang dari tombol "Hire" di Page E (Wright Profile) --
@@ -103,7 +103,7 @@ export function PostJobForm({
         <p className="col-span-full rounded-panel border border-gold/40 bg-gold/[0.07] px-3 py-2.5 text-[12px] text-ink-2">
           Continuing from {continueFrom}. Write what you want next under
           &ldquo;What I want next&rdquo;, then pick the District that should take
-          it. This is a new job with its own wage; the earlier job is not
+          it. This is a new job with its own SGUM; the earlier job is not
           affected.
         </p>
       )}
@@ -172,7 +172,7 @@ export function PostJobForm({
       )}
 
       <label className={labelClass}>
-        Wage ({WAGE_TOKEN})
+        Amount ({WAGE_TOKEN})
         <input
           className={inputClass}
           type="number"
@@ -192,7 +192,7 @@ export function PostJobForm({
 
       {!isOnChainEscrowConfigured && (
         <p className="col-span-full text-[11.5px] text-ink-3">
-          Simulation mode: the wage is recorded in the database only. No{' '}
+          Simulation mode: the SGUM is recorded in the database only. No{' '}
           {WAGE_TOKEN} is moved and no wallet is needed.
         </p>
       )}
@@ -200,8 +200,8 @@ export function PostJobForm({
       <div className="col-span-full flex justify-end border-t border-line-2 pt-4">
         <Button type="submit" variant="primary" disabled={submitting}>
           {submitting
-            ? (submittingLabel ?? 'Locking wage…')
-            : 'Lock wage in the Vault'}
+            ? (submittingLabel ?? 'Locking SGUM…')
+            : 'Lock SGUM in the Vault'}
         </Button>
       </div>
     </form>

@@ -46,7 +46,7 @@ export function Foundations() {
         </Card>
         <Card k="Contract · Distribution">
           <H4>The Splitter</H4>
-          <P>Splits each sealed wage {SPLIT} and books the Reactor&apos;s share for a permissionless burn.</P>
+          <P>Splits each sealed SGUM {SPLIT} and books the Reactor&apos;s share for a permissionless burn.</P>
           <code className={CODE}>
             registerJob · pullAndSplit
             <br />

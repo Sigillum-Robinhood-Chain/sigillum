@@ -287,8 +287,8 @@ export async function createJob(
     actor: 'client',
     type: 'job_created',
     note: input.escrowTx
-      ? `Wage of ${input.budgetUsdc} ${WAGE_UNIT} locked in the Strongbox on-chain.`
-      : `Wage of ${input.budgetUsdc} ${WAGE_UNIT} locked in the Strongbox (simulated -- escrow on-chain belum dikonfigurasi)`,
+      ? `${input.budgetUsdc} ${WAGE_UNIT} locked in the Strongbox on-chain.`
+      : `${input.budgetUsdc} ${WAGE_UNIT} locked in the Strongbox (simulated -- escrow on-chain belum dikonfigurasi)`,
     tx: input.escrowTx ?? null,
   });
 
@@ -423,7 +423,7 @@ export async function approveJob(
         job_id: jobId,
         actor: 'system',
         type: 'split_record_failed',
-        note: `The wage is released, but the split could not be recorded (${splitError.message}). Is migration 0013 applied?`,
+        note: `The SGUM is released, but the split could not be recorded (${splitError.message}). Is migration 0013 applied?`,
       });
     } else if (split) {
       await writer.from('job_events').insert({

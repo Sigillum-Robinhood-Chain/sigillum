@@ -1,4 +1,4 @@
-/** Format angka untuk Weighhouse. Semua jumlah token sudah dalam satuan WAGE (bukan wei). */
+/** Format angka untuk Weighhouse. Semua jumlah token sudah dalam satuan SGUM (bukan wei). */
 
 const nf = (max: number, min = 0) =>
   new Intl.NumberFormat("en-US", { maximumFractionDigits: max, minimumFractionDigits: min });
@@ -8,10 +8,10 @@ export function fmtWage(n: number | null | undefined, digits = 0): string {
   return nf(digits).format(n);
 }
 
-/** `1,234 WAGE` (brief §6: satuan setelah angka). */
+/** `1,234 SGUM` (brief §6: satuan setelah angka). */
 export function fmtWageUnit(n: number | null | undefined, digits = 0): string {
   if (n == null || !Number.isFinite(n)) return "—";
-  return `${fmtWage(n, digits)} WAGE`;
+  return `${fmtWage(n, digits)} SGUM`;
 }
 
 export function fmtUsd(n: number | null | undefined): string {

@@ -54,7 +54,7 @@ export async function POST(
   }
   if (!job.escrow_tx) {
     return NextResponse.json(
-      { error: "This job's wage isn't locked on-chain, so there is nothing to prepare" },
+      { error: "This job's SGUM isn't locked on-chain, so there is nothing to prepare" },
       { status: 400 }
     );
   }

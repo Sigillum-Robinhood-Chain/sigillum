@@ -160,7 +160,7 @@ export function WeighhouseClient({
     }, 2000);
   });
 
-  // Peringatan dev (brief §7): bucket supply harus menjumlah ke totalSupply dalam 1 WAGE.
+  // Peringatan dev (brief §7): bucket supply harus menjumlah ke totalSupply dalam 1 SGUM.
   useEffect(() => {
     const s = summary?.supply;
     if (!s) return;
@@ -186,7 +186,7 @@ export function WeighhouseClient({
           eyebrow="The Weighhouse"
           title={
             <>
-              Every WAGE, <em>weighed</em>
+              Every SGUM, <em>weighed</em>
             </>
           }
           lede="Price, supply, utility flow and the Reactor's burn, in one place."
@@ -231,7 +231,7 @@ export function WeighhouseClient({
         <Tile
           label="Price"
           tip={{
-            f: 'Latest $WAGE trade price from the newest price snapshot.',
+            f: 'Latest $SGUM trade price from the newest price snapshot.',
             href: explorerToken(ADDRESSES.wageToken),
           }}
           value={fmtPriceUsd(t?.priceUsd ?? null)}
@@ -285,7 +285,7 @@ export function WeighhouseClient({
           label="Work Ratio"
           accent
           tip={{
-            f: 'Σ sealed wages ÷ Σ $WAGE traded (curve + v4 pool), same window. Sealed = SealSet amounts + the payee share of resolved disputes.',
+            f: 'Σ sealed SGUM ÷ Σ $SGUM traded (curve + v4 pool), same window. Sealed = SealSet amounts + the payee share of resolved disputes.',
           }}
           value={
             t?.workRatioPct == null
@@ -294,7 +294,7 @@ export function WeighhouseClient({
           }
           sub={
             <span className="text-faint">
-              Share of $WAGE movement that came from paid work.{' '}
+              Share of $SGUM movement that came from paid work.{' '}
               {t && t.tradeVolumeSource === 'none'
                 ? 'No trades in this window.'
                 : t
@@ -410,7 +410,7 @@ export function WeighhouseClient({
             title="Top buildings"
             action={
               <span className="text-[11px] text-faint">
-                by sealed wages · {WIN_PHRASE[win]}
+                by sealed SGUM · {WIN_PHRASE[win]}
               </span>
             }
           />
@@ -611,12 +611,12 @@ function FlowBlock({ flow }: { flow: Summary['flow'] }) {
     <div className="p-3.5">
       {empty && (
         <p className="mb-2 text-[12.5px] text-faint">
-          No wages moved through the Vault in this window.
+          No SGUM moved through the Vault in this window.
         </p>
       )}
       <FlowRow
         max={max}
-        label="Wages locked"
+        label="SGUM locked"
         value={flow.locked}
         color={C.patrons}
         tip="Σ JobFunded amounts on the Vault (escrow)."
@@ -624,7 +624,7 @@ function FlowBlock({ flow }: { flow: Summary['flow'] }) {
       />
       <FlowRow
         max={max}
-        label="Wages sealed"
+        label="SGUM sealed"
         value={flow.sealed}
         color={C.patrons}
         tip="Σ SealSet amounts + the payee share of DisputeResolved."
@@ -712,12 +712,12 @@ function FurnaceBlock({ f, win }: { f: Summary['furnace']; win: Win }) {
         <div className="mt-3">
           <BurnChart data={f.daily} />
           <p className="text-[11px] text-faint">
-            Bars: WAGE burned per UTC day · line: cumulative
+            Bars: SGUM burned per UTC day · line: cumulative
           </p>
         </div>
       ) : (
         <p className="mt-3 text-[12.5px] text-faint">
-          The Reactor is cold. No wages sealed yet in this window.
+          The Reactor is cold. No SGUM sealed yet in this window.
         </p>
       )}
       {f.latest.length > 0 && (
@@ -766,7 +766,7 @@ const Stat = ({
 );
 
 function TopTable({ rows }: { rows: TopBuilding[] }) {
-  if (!rows.length) return <Empty>No sealed wages in this window.</Empty>;
+  if (!rows.length) return <Empty>No sealed SGUM in this window.</Empty>;
   return (
     <div className="overflow-x-auto p-3.5">
       <table className="w-full min-w-[460px] text-left text-[12.5px]">
@@ -888,7 +888,7 @@ function CaBlock() {
   const ca = ADDRESSES.wageToken;
   return (
     <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
-      <span className="text-muted">$WAGE CA</span>
+      <span className="text-muted">$SGUM CA</span>
       <code className="max-w-full break-all rounded bg-surface-2 px-2 py-1 font-mono text-[11px] text-text">
         {ca}
       </code>

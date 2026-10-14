@@ -65,7 +65,7 @@ export function PostJobClient({
         ({ id, escrowTx } = pendingLock);
       } else {
         if (!isConnected || !address) {
-          setError('Connect your wallet first to lock the wage on-chain.');
+          setError('Connect your wallet first to lock the SGUM on-chain.');
           setNeedsWallet(true);
           setSubmitting(false);
           return;
@@ -88,7 +88,7 @@ export function PostJobClient({
           setError(
             err instanceof Error
               ? err.message
-              : 'Locking the wage on-chain failed',
+              : 'Locking the SGUM on-chain failed',
           );
           setSubmitting(false);
           setSubmittingLabel(undefined);
@@ -117,7 +117,7 @@ export function PostJobClient({
       const base = err instanceof Error ? err.message : 'Something went wrong';
       setError(
         escrowTx
-          ? `Wage already locked on-chain (tx ${escrowTx.slice(0, 10)}…) but saving the job record failed: ${base}. Submit with the same wage amount to retry saving -- it won't lock the wage a second time.`
+          ? `SGUM already locked on-chain (tx ${escrowTx.slice(0, 10)}…) but saving the job record failed: ${base}. Submit with the same SGUM amount to retry saving -- it won't lock the SGUM a second time.`
           : base,
       );
       setSubmitting(false);
