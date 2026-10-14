@@ -501,3 +501,26 @@ select {
 .city-tip.show {
   opacity: 1;
 }
+
+
+/* Kontrol di header (Connect wallet, ikon X/GitHub, lencana Simulation) di atas kota siang:
+   latar gelap + border emas yang menguat mengikuti --day supaya tetap jelas di langit terang.
+   Gradasi gelap tipis di atas header membuat menu & logo terbaca. Di malam hari (--day = 0)
+   tampilannya sama seperti sebelumnya. Sengaja di luar @layer agar menang atas utility Tailwind. */
+.hdr-btn {
+  background-color: rgba(8, 11, 20, calc(var(--day, 0) * 0.62));
+  border-color: rgba(214, 182, 118, calc(0.2 + var(--day, 0) * 0.45));
+  -webkit-backdrop-filter: blur(calc(var(--day, 0) * 10px));
+  backdrop-filter: blur(calc(var(--day, 0) * 10px));
+}
+.hdr-btn:hover {
+  border-color: var(--color-gold);
+}
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -28px 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 11, 20, calc(var(--day, 0) * 0.55)), transparent);
+}
