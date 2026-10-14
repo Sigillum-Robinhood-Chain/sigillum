@@ -1,0 +1,491 @@
+@import "tailwindcss";
+
+/* CP1 (redesign Sigillum): token diselaraskan dengan sigillum.html (:root).
+   NAMA token lama (bg, surface, line, text, muted, faint, gold, ward-*) sengaja
+   dipertahankan supaya komponen lama tidak rusak -- hanya NILAInya yang berganti.
+   Token baru (ink-*, gold-2, ice, lav, ember, line-2, glass) dipakai komponen
+   baru mulai CP2.
+   Tailwind v4 pakai @theme, bukan tailwind.config.ts -- kelas seperti
+   bg-bg, text-gold, text-ward-research otomatis dihasilkan dari sini. */
+@theme {
+  /* Latar & permukaan (sigillum: --bg #05070d) */
+  --color-bg: #05070d;
+  --color-surface: #0a0e16;
+  --color-surface-2: #10151f;
+
+  /* Teks (sigillum: --ink, --ink-2/3/4) */
+  --color-text: #eee8dc;
+  --color-ink: #eee8dc;
+  --color-ink-2: rgba(238, 232, 220, 0.7);
+  /* CP10: ink-3 dinaikkan .44 -> .58 (kontras >= 5.2:1 di atas bg/surface, WCAG AA untuk teks kecil).
+     ink-4 (.22, ~1.7:1) HANYA untuk dekorasi (titik, garis); teks fungsional pakai ink-3. */
+  --color-ink-3: rgba(238, 232, 220, 0.58);
+  --color-ink-4: rgba(238, 232, 220, 0.22);
+  --color-muted: rgba(238, 232, 220, 0.7);
+  --color-faint: rgba(238, 232, 220, 0.58);
+
+  /* Garis (sigillum: --line emas tipis, --line-2 netral tipis) */
+  --color-line: rgba(214, 182, 118, 0.2);
+  --color-line-2: rgba(238, 232, 220, 0.09);
+
+  /* Aksen */
+  --color-gold: #d6b676;
+  --color-gold-2: #f0dcb0;
+  --color-gold-ink: #100d07;
+  --color-ice: #a8c4de;
+  --color-lav: #cfc7b8;
+  --color-ember: #c98762;
+
+  /* Kaca (panel transparan di atas scene 3D) */
+  --color-glass: rgba(7, 10, 17, 0.62);
+
+  /* Warna fungsional: dipertahankan */
+  --color-good: #7cc79a;
+  --color-warn: #f0b455;
+  --color-crit: #e27070;
+
+  /* Warna per District (id kode TETAP: research/onchain/creative/security/community).
+     Nilai dari DISTRICTS di sigillum.html. Duplikat hex ada di types/domain.ts
+     (WARD_COLOR_HEX) dan components/weighhouse/weighhouse-client.tsx (WARD_DOT):
+     ubah ketiganya bersamaan. */
+  --color-ward-research: #4fa3f7;
+  --color-ward-onchain: #f2be4a;
+  --color-ward-creative: #a47cff;
+  --color-ward-security: #2fd39b;
+  --color-ward-community: #ff6f59;
+
+  --font-display: var(--font-display-family), "Times New Roman", serif;
+  --font-body: var(--font-body-family), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-mono-family), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Sigillum memakai sudut siku; 2px = hampir siku tanpa mengubah struktur panel. */
+  --radius-panel: 2px;
+
+  /* sigillum: --gutter. Dipakai sebagai px-gutter / pl-gutter, dst. */
+  --spacing-gutter: clamp(16px, 6vw, 96px);
+}
+
+/* CP4: animasi khas sigillum.html (timeline "flow" di Protocol, titik berdenyut di hint/live). */
+@theme {
+  --animate-flow: flow 6s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+  --animate-beacon: beacon 2.4s ease-in-out infinite;
+
+  @keyframes flow {
+    from {
+      left: -14%;
+    }
+    to {
+      left: 100%;
+    }
+  }
+  @keyframes beacon {
+    50% {
+      opacity: 0.25;
+    }
+  }
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  /* CP3: scroll halus untuk tautan anchor (sigillum: html{scroll-behavior:smooth}).
+     Dimatikan lagi oleh aturan prefers-reduced-motion di bawah. */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* font-size 14px & line-height 1.45 SENGAJA belum diganti ke 16px/1.6 milik
+     sigillum: dashboard lama masih padat dan akan bergeser. Section landing
+     menetapkan ukuran sendiri (CP4). */
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Instrument Serif hanya punya weight 400. Tanpa ini, font-semibold/bold
+       pada font-display akan dipalsukan (faux bold) oleh browser. */
+    font-synthesis-weight: none;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: #0b0b0b;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
+  /* Scrollbar tipis yang mengikuti tema gelap (thumb = warna line/faint,
+     track transparan). Standar modern: Firefox, Chrome 121+, Safari 18.2+. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
+  }
+}
+
+/* Dropdown <select>: popup-nya digambar browser sendiri, jadi butuh color-scheme gelap
+   dan (di Chrome/Edge/Safari) aturan ::-webkit-scrollbar supaya scrollbar-nya ikut
+   tipis & bertema. Firefox tetap memakai aturan scrollbar-color di atas. */
+select {
+  color-scheme: dark;
+}
+@supports selector(select::-webkit-scrollbar) {
+  select {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+  select::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  select::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+  select::-webkit-scrollbar-thumb {
+    background-color: var(--color-line);
+    border-radius: 999px;
+  }
+  select::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-faint);
+  }
+}
+
+/* Fallback untuk browser lama yang belum mendukung scrollbar-color. */
+@supports not (scrollbar-color: auto) {
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-line);
+    border-radius: 999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-faint);
+  }
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+/* Utilitas visual khas sigillum.html. Belum dipakai komponen mana pun di CP1;
+   dipakai mulai CP2 (Panel, Eyebrow). */
+@layer components {
+  /* Tick emas di pojok kiri-atas & kanan-bawah (sigillum: .ticks) */
+  .ticks {
+    position: relative;
+  }
+  .ticks::before,
+  .ticks::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--color-gold);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .ticks::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+  }
+  .ticks::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+  }
+
+  /* CP8: overlay dashboard kota (sigillum: .veil + .scan). Keduanya fixed, di atas scene (z-0)
+     dan di bawah HUD (z-10), tidak menangkap pointer. */
+  .veil {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(130% 95% at 50% 45%, transparent 38%, rgba(5, 7, 13, 0.82) 100%),
+      linear-gradient(180deg, rgba(5, 7, 13, 0.85) 0, rgba(5, 7, 13, 0.2) 120px, transparent 220px);
+  }
+  .scan {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.05;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.5) 0 1px,
+      transparent 1px 3px
+    );
+    mix-blend-mode: overlay;
+  }
+
+  /* Panel kaca (sigillum: .panel) */
+  .panel-glass {
+    position: relative;
+    background: var(--color-glass);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid var(--color-line-2);
+  }
+
+  /* Label kecil mono dengan garis gradien di kiri (sigillum: .eyebrow) */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold));
+  }
+
+  /* CP5: reveal on scroll (sigillum: .rv / .rv.in / .d1-.d5). Kelas `in` ditambahkan oleh
+     <RevealObserver /> lewat IntersectionObserver, satu kali per elemen. Berada di
+     @layer components supaya utilitas Tailwind (mis. `transition-*` di kartu district)
+     tetap menang bila dipasang di elemen yang sama. */
+  .rv {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 1.1s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .rv.in {
+    opacity: 1;
+    transform: none;
+  }
+  .rv.d1 { transition-delay: 0.08s; }
+  .rv.d2 { transition-delay: 0.16s; }
+  .rv.d3 { transition-delay: 0.24s; }
+  .rv.d4 { transition-delay: 0.32s; }
+  .rv.d5 { transition-delay: 0.4s; }
+
+  /* Slider kalkulator wage (sigillum: input[type=range]). --p = persen terisi. */
+  .range-gold {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 2px;
+    margin: 20px 0 22px;
+    outline: none;
+    cursor: pointer;
+    background: linear-gradient(
+      90deg,
+      var(--color-gold) var(--p, 10%),
+      var(--color-line-2) var(--p, 10%)
+    );
+  }
+  .range-gold:disabled {
+    cursor: default;
+  }
+  .range-gold::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-gold-2);
+    box-shadow:
+      0 0 0 5px rgba(214, 182, 118, 0.18),
+      0 0 18px var(--color-gold);
+  }
+  .range-gold::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-gold-2);
+    box-shadow: 0 0 0 5px rgba(214, 182, 118, 0.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* CP5: reveal tidak menyembunyikan apa pun bila user minta reduced-motion. */
+  .rv {
+    opacity: 1;
+    transform: none;
+  }
+  /* CP10: cahaya "flow" di timeline Protocol hanya dekorasi bergerak; dengan animasi dipaksa
+     selesai ia akan diam di ujung kanan, jadi disembunyikan saja. */
+  .animate-flow {
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ---------- CP9: kota 3D di belakang landing ---------- */
+.city-host {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+}
+.city-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  /* Scroll vertikal tetap jalan saat jari mulai di atas kanvas (mobile). */
+  touch-action: pan-y;
+}
+/* Vignette + scrim terbaca (sigillum: .veil). Scrim ikut menebal saat siang (--day diisi scene),
+   supaya teks terang di atas langit siang tetap terbaca. */
+.veil-landing {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  pointer-events: none;
+  background:
+    radial-gradient(130% 95% at 60% 40%, transparent 38%, rgba(5, 7, 13, 0.82) 100%),
+    linear-gradient(90deg, rgba(5, 7, 13, 0.78) 0%, rgba(5, 7, 13, 0.25) 42%, transparent 68%);
+}
+.veil-landing::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 7, 13, 0.62);
+  opacity: calc(var(--day, 0) * 1);
+}
+@media (max-width: 860px) {
+  .veil-landing {
+    background:
+      radial-gradient(130% 95% at 50% 40%, transparent 30%, rgba(5, 7, 13, 0.85) 100%),
+      linear-gradient(180deg, rgba(5, 7, 13, 0.3), rgba(5, 7, 13, 0.6));
+  }
+}
+/* Scene hidup: konten tidak menangkap pointer kecuali yang interaktif, jadi kota bisa diputar
+   dan menaranya diklik di sela konten (sigillum: main{pointer-events:none}). */
+.city-live .city-main {
+  pointer-events: none;
+}
+.city-live .city-main :is(a, button, input, select, textarea, label, svg, .panel-glass, [role="dialog"]) {
+  pointer-events: auto;
+}
+
+/* Label district melayang di atas kota (sigillum: #labels + .dlabel) */
+.city-labels {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+.city-labels.show {
+  opacity: 1;
+}
+.dlabel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 10px;
+  border-radius: 999px;
+  background: rgba(5, 7, 13, 0.55);
+  border: 1px solid var(--color-line-2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink-2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color 0.3s,
+    color 0.3s;
+  will-change: transform;
+  pointer-events: none;
+}
+.city-labels.show .dlabel {
+  pointer-events: auto;
+}
+.dlabel i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 10px var(--c);
+}
+.dlabel:hover,
+.dlabel.on {
+  border-color: var(--c);
+  color: var(--color-ink);
+}
+
+/* Tooltip hover menara (sigillum: .tip) */
+.city-tip {
+  position: fixed;
+  z-index: 30;
+  pointer-events: none;
+  padding: 10px 14px;
+  background: rgba(5, 7, 13, 0.86);
+  border: 1px solid var(--color-line);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-2);
+  opacity: 0;
+  transform: translate(14px, 14px);
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.city-tip b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-ink);
+  font-weight: 400;
+  margin-top: 2px;
+}
+.city-tip.show {
+  opacity: 1;
+}
