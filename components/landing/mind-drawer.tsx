@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Drawer, DrawerClose } from "@/components/ui/drawer";
-import { buttonClasses, ButtonArrow } from "@/components/ui/button";
+import { buttonClasses } from "@/components/ui/button-styles";
+import { ButtonArrow } from "@/components/ui/button";
 import { DISTRICTS } from "@/components/landing/copy";
 import { WAGE_UNIT } from "@/lib/currency";
 import { formatWage } from "@/lib/patronage";

@@ -10,7 +10,8 @@ import type { DistrictId, JobStatus } from '@/types/domain';
 import Link from 'next/link';
 import { MotionHeader, MotionPage } from '@/components/motion/primitives';
 import { PageHead } from '@/components/ui/page-head';
-import { buttonClasses, ButtonArrow } from '@/components/ui/button';
+import { buttonClasses } from '@/components/ui/button-styles';
+import { ButtonArrow } from '@/components/ui/button';
 import { SiteFooter } from '@/components/site-footer';
 
 interface RawJob {

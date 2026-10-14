@@ -9,7 +9,7 @@
  * Yang BERBEDA (keputusan CP0):
  *  - Menara mind = baris `agents` dari DB (bukan 20 nama contoh HTML). Posisi = slot per district
  *    (steward di slot terdekat). Tinggi menara & kilaunya mengikuti revenue / status job.
- *  - Siang/malam otomatis (uniform `uDay`, dari daylightAt) -- HTML aslinya hanya malam.
+ *  - Siang/malam otomatis (uniform `uDay`, dari daylightAt; bisa dikunci lewat lib/city/day-mode.ts) -- HTML aslinya hanya malam.
  *  - Seluruh resource di-dispose saat `dispose()`; fallback bila WebGL gagal; reduced-motion
  *    mematikan auto-rotate; mobile menurunkan DPR & jumlah objek.
  *
@@ -22,6 +22,7 @@ import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPa
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 import { DISTRICT_ORDER, type DistrictId } from "@/types/domain";
 import { SECTION_CAMS, daylightAt, type SceneDistrict, type SceneMind } from "@/lib/city/scene-config";
+import { getDayMode, subscribeDayMode } from "@/lib/city/day-mode";
 
 export interface SceneOptions {
   canvas: HTMLCanvasElement;
@@ -1204,9 +1205,17 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
   const HEMI_SKY = [new THREE.Color(0x8197b8), new THREE.Color(0xbcd2ee)];
   const HEMI_GND = [new THREE.Color(0x0b0c10), new THREE.Color(0x3a3a38)];
   const RIM_COL = [new THREE.Color(0x9fb8d8), new THREE.Color(0xd8e6f6)];
-  let day = daylightAt(new Date());
+  // Mode dari tombol siang/malam (lib/city/day-mode.ts): auto = jam lokal, day = 1, night = 0.
+  const targetDay = () => {
+    const m = getDayMode();
+    return m === "day" ? 1 : m === "night" ? 0 : daylightAt(new Date());
+  };
+  let day = targetDay();
   let dayTarget = day;
-  let appliedDay = -1, envDay = -1;
+  const offDayMode = subscribeDayMode(() => {
+    dayTarget = targetDay();
+  });
+  let appliedDay = -1, envDay = -1, lastEnvAt = 0;
   let lastClock = performance.now();
 
   function applyDay(d: number) {
@@ -1232,8 +1241,12 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
     document.documentElement.style.setProperty("--day", d.toFixed(3));
     appliedDay = d;
     // Bayangan & refleksi lingkungan mahal: segarkan hanya bila siang berubah cukup jauh.
-    if (envDay < 0 || Math.abs(d - envDay) > 0.06) {
+    // Perpindahan cepat (tombol siang/malam) dibatasi 1x per 350 ms, dan keadaan akhir selalu disegarkan.
+    const nowMs = performance.now();
+    const settled = d === dayTarget && Math.abs(d - envDay) > 0.001;
+    if (envDay < 0 || settled || (Math.abs(d - envDay) > 0.06 && nowMs - lastEnvAt > 350)) {
       envDay = d;
+      lastEnvAt = nowMs;
       buildEnv();
       renderer.shadowMap.needsUpdate = true;
     }
@@ -1257,7 +1270,7 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
     // Jam dicek tiap 5 detik; perpindahan siang <-> malam mulus (langsung loncat bila reduced-motion).
     if (now - lastClock > 5000) {
       lastClock = now;
-      dayTarget = daylightAt(new Date());
+      dayTarget = targetDay();
     }
     day = reduced ? dayTarget : day + (dayTarget - day) * Math.min(1, dt * 1.6);
     if (Math.abs(day - dayTarget) < 0.002) day = dayTarget;
@@ -1320,6 +1333,7 @@ export function createSigillumScene(opts: SceneOptions): SceneHandle | null {
     disposed = true;
     cancelAnimationFrame(raf);
     clearTimeout(readyTimer);
+    offDayMode();
     removeEventListener("scroll", applySection);
     removeEventListener("resize", onResize);
     canvas.removeEventListener("pointermove", onMove);

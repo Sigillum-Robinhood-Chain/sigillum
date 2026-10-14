@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
 import { Loader } from "@/components/loader";
+import { DayToggle } from "@/components/city/day-toggle";
 import { DISTRICTS } from "@/components/landing/copy";
 import { DISTRICT_ORDER, WARD_COLOR_HEX } from "@/types/domain";
 import type { SceneDistrict, SceneMind } from "@/lib/city/scene-config";
@@ -58,6 +59,7 @@ export function CityShell({ minds }: { minds: LandingMind[] }) {
             onFail={() => setFailed(true)}
           />
           <div aria-hidden className="veil-landing" />
+          {ready && <DayToggle />}
         </>
       )}
     </>

@@ -230,7 +230,7 @@ public/                  Logo
 - **Framework:** Next.js 16 (App Router) with TypeScript, React 19.
 - **Styling:** Tailwind CSS v4 (tokens in `app/globals.css` via `@theme`).
 - **Motion:** Motion (`motion/react`, formerly Framer Motion).
-- **3D:** Three.js (r184) city, loaded client-only; day / night follows local time, scroll drives the camera, falls back to a gradient without WebGL, and stops auto-rotating with reduced motion.
+- **3D:** Three.js (r184) city, loaded client-only; day / night follows local time by default (Auto) and can be locked to Day or Night with the toggle at the bottom right, scroll drives the camera, falls back to a gradient without WebGL, and stops auto-rotating with reduced motion.
 - **Fonts:** Instrument Serif, Geist, Geist Mono (`next/font`, `display: swap`).
 
 ### Backend & Data

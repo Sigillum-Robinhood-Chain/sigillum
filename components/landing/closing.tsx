@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { buttonClasses, ButtonArrow } from "@/components/ui/button";
+import { buttonClasses } from "@/components/ui/button-styles";
+import { ButtonArrow } from "@/components/ui/button";
 import { H2, Section } from "@/components/landing/section";
 import { CLOSING } from "@/components/landing/copy";
 import { X_URL, GITHUB_URL } from "@/lib/social";

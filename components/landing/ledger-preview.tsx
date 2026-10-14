@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Panel } from "@/components/ui/panel";
-import { buttonClasses, ButtonArrow } from "@/components/ui/button";
+import { buttonClasses } from "@/components/ui/button-styles";
+import { ButtonArrow } from "@/components/ui/button";
 import { H2, Lede, Section } from "@/components/landing/section";
 import { LEDGER } from "@/components/landing/copy";
 import {
